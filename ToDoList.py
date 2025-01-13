@@ -22,7 +22,8 @@ class TodoList:
 
     def toggle_task(self, task_index):
         if 0 <= task_index < len(self.tasks):
-            self.tasks[task_index]["completed"] = not self.tasks[task_index]["completed"]
+            # Bug: Incorrectly toggling the completion status
+            self.tasks[task_index]["completed"] = self.tasks[task_index]["completed"]
             status = "completed" if self.tasks[task_index]["completed"] else "not completed"
             print(f"Task marked as {status}: {self.tasks[task_index]['task']}")
         else:
