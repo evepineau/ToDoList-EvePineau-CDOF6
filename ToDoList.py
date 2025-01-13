@@ -1,5 +1,10 @@
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
+
 class TodoList:
-    def _init_(self):
+    def __init__(self):
         self.tasks = []
 
     def add_task(self, task):
@@ -22,7 +27,6 @@ class TodoList:
 
     def toggle_task(self, task_index):
         if 0 <= task_index < len(self.tasks):
-            # Fix: Correctly toggling the completion status
             self.tasks[task_index]["completed"] = not self.tasks[task_index]["completed"]
             status = "completed" if self.tasks[task_index]["completed"] else "not completed"
             print(f"Task marked as {status}: {self.tasks[task_index]['task']}")
@@ -33,10 +37,13 @@ class TodoList:
         if not self.tasks:
             print("No tasks in the list.")
         else:
+            colors = [Fore.RED, Fore.GREEN, Fore.BLUE, Fore.YELLOW, Fore.MAGENTA, Fore.CYAN]
             print("Task list:")
             for index, task in enumerate(self.tasks):
+                color = colors[index % len(colors)]  # Cycle through colors
                 status = "[x]" if task["completed"] else "[ ]"
-                print(f"{index}: {status} {task['task']}")
+                print(f"{color}{index}: {status} {task['task']}{Style.RESET_ALL}")
+
 
 def main():
     todo_list = TodoList()
@@ -56,20 +63,30 @@ def main():
             task = input("Enter the new task: ")
             todo_list.add_task(task)
         elif choice == '2':
-            task_index = int(input("Enter the index of the task to remove: "))
-            todo_list.remove_task(task_index)
+            try:
+                task_index = int(input("Enter the index of the task to remove: "))
+                todo_list.remove_task(task_index)
+            except ValueError:
+                print("Invalid input. Please enter a valid index.")
         elif choice == '3':
-            task_index = int(input("Enter the index of the task to modify: "))
-            new_task = input("Enter the new task: ")
-            todo_list.modify_task(task_index, new_task)
+            try:
+                task_index = int(input("Enter the index of the task to modify: "))
+                new_task = input("Enter the new task: ")
+                todo_list.modify_task(task_index, new_task)
+            except ValueError:
+                print("Invalid input. Please enter a valid index.")
         elif choice == '4':
-            task_index = int(input("Enter the index of the task to toggle completion: "))
-            todo_list.toggle_task(task_index)
+            try:
+                task_index = int(input("Enter the index of the task to toggle completion: "))
+                todo_list.toggle_task(task_index)
+            except ValueError:
+                print("Invalid input. Please enter a valid index.")
         elif choice == '5':
             print("Goodbye!")
             break
         else:
             print("Invalid option. Please try again.")
 
-if _name_ == "_main_":
+
+if __name__ == "__main__":
     main()
