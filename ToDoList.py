@@ -1,5 +1,5 @@
 class TodoList:
-    def __init__(self):
+    def _init_(self):
         self.tasks = []
 
     def add_task(self, task):
@@ -22,8 +22,8 @@ class TodoList:
 
     def toggle_task(self, task_index):
         if 0 <= task_index < len(self.tasks):
-            # Bug: Incorrectly toggling the completion status
-            self.tasks[task_index]["completed"] = self.tasks[task_index]["completed"]
+            # Fix: Correctly toggling the completion status
+            self.tasks[task_index]["completed"] = not self.tasks[task_index]["completed"]
             status = "completed" if self.tasks[task_index]["completed"] else "not completed"
             print(f"Task marked as {status}: {self.tasks[task_index]['task']}")
         else:
@@ -71,5 +71,5 @@ def main():
         else:
             print("Invalid option. Please try again.")
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
