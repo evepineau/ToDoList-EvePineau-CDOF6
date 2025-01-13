@@ -30,7 +30,7 @@ Once the script is executed, you will see a menu with the following options:
 2. Delete a task
 3. Modify a task
 4. Toggle task completion
-5. Quit
+5. Quit the script
 
 Follow the on-screen instructions to interact with the application.
 
